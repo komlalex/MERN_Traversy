@@ -1,0 +1,8 @@
+{
+  "name": "MERN_Traversy",
+  "version": "1.0.0",
+  "description": "Modern MERN Stack App with Traversy Media",
+  "main": "index.js",
+  "author": "Kunyelewosi Alexander",
+  "license": "MIT"
+}
