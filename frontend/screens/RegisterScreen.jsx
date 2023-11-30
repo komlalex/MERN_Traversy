@@ -7,10 +7,11 @@ function RegisterScreen () {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     const submitHandler = async(e) => {
         e.preventDefault();
-        console.log("Register")
+        console.log(name);
     }
 
     return (
@@ -38,7 +39,7 @@ function RegisterScreen () {
                 onChange = {e => setEmail(e.target.value)}/>
             </Form.Group>
 
-            <Form.Group controlid="pasword" className="my-3">
+            <Form.Group controlid="password" className="my-3">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                 type="password"
@@ -47,11 +48,21 @@ function RegisterScreen () {
                 onChange= {e => setPassword(e.target.value)}/>
             </Form.Group>
 
+            <Form.Group controlid="confirm-password" className="my-3">
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control
+                type="password"
+                placeholder="Enter password"
+                value ={confirmPassword}
+                onChange= {e => setConfirmPassword(e.target.value)}/>
+            </Form.Group>
+
+
             <Button type="submit" variant="primary">Sign Up</Button>
 
             <Row className="py-3">
                 <Col>
-                Already Have an Account? <Link to ="/login">Login</Link>
+                Already have an Account? <Link to ="/login">Login</Link>
                 </Col>
             </Row>
          </Form>
