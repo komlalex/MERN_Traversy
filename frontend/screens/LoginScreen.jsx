@@ -12,8 +12,8 @@ function  LoginScreen() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const SubmitHandler = async(e) => {
-        e.preventDefalut();
+    const submitHandler = async(e) => {
+        e.preventDefault();
         console.log("login");
     }
 
@@ -21,7 +21,7 @@ function  LoginScreen() {
   return (
     <FormContainer>
         <h1>Sign In</h1>
-        <Form onSubmit = {SubmitHandler}>
+        <Form onSubmit = {submitHandler}>
             <Form.Group className="my-2" constrolid = "email">
                 <Form.Label>Email Address</Form.Label>
                 <Form.Control 
