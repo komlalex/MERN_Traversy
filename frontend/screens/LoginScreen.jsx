@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Form, Col, Row, Button,  } from "react-bootstrap";
 import FormContainer from "../src/components/FormContainer";
+import {useDispatch, useSelector} from "react-redux";
+import { useLoginMutation } from "../src/slices/usersApiSlice";
+import { setCredentials } from "../src/slices/authSlice";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 
@@ -12,9 +17,31 @@ function  LoginScreen() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();   
+
+    const [login, {isLoading}] = useLoginMutation();
+
+    const {userInfo} = useSelector(state => state.auth);
+
+    useEffect(() => {
+        if (userInfo) {
+            navigate("/");
+        }
+    }, [navigate, userInfo]);
+
     const submitHandler = async(e) => {
         e.preventDefault();
-        console.log("login");
+        
+        try {
+          const  res = await login({email, password}).unwrap();
+          dispatch(setCredentials({...res}));
+          navigate('/')
+        } catch(err) {
+    
+            toast.error(err?.data?.message || err.error)
+        
+        }
     }
 
 
@@ -29,6 +56,7 @@ function  LoginScreen() {
                 placeholder="Enter email"
                 value = {email}
                 onChange = {e => setEmail(e.target.value)}
+                required = {true}
                 ></Form.Control>
             </Form.Group>
 
@@ -38,7 +66,9 @@ function  LoginScreen() {
                 type="password"
                 placeholder="Enter password"
                 value= {password}
-                onChange = {e => setPassword(e.target.value)}>
+                onChange = {e => setPassword(e.target.value)}
+                required = {true}
+                >
                 </Form.Control>
             </Form.Group>
 
